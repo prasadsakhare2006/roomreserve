@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: roomreserve-postgres
+    environment:
+      POSTGRES_DB: roomreserve
+      POSTGRES_USER: roomreserve
+      POSTGRES_PASSWORD: roomreserve_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - roomreserve_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U roomreserve -d roomreserve"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  roomreserve_data:
